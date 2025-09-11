@@ -18,7 +18,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,env,configprops,refresh,busrefresh
+        include: mapping,health,retryevents,circuitbreakerevents,env,refresh
   endpoint:
     env:
       show-values: always

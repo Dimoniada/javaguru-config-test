@@ -35,12 +35,6 @@ spring:
           filters:
             - AuthenticationFilter
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus,refresh,busrefresh,gateway
-
 app:
   jwt:
     secret: ${JWT_SECRET}

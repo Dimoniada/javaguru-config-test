@@ -25,6 +25,14 @@ management:
       show-details: always
       keys-to-sanitize: []
 
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}-URL
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 logging:
   level:
     root: INFO

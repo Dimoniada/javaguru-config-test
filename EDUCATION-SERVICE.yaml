@@ -11,14 +11,6 @@ spring:
       ddl-auto: none
     open-in-view: false
 
-eureka:
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}-URL
-  client:
-    service-url:
-      defaultZone: 'http://localhost:8761/eureka/'
-
 resilience4j:
   circuitbreaker:
     circuit-breaker-aspect-order: 1

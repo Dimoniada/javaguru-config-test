@@ -35,7 +35,7 @@ spring:
           filters:
             - AuthenticationFilter
 
-app:
+security:
   jwt:
     secret: ${JWT_SECRET}
 

@@ -7,8 +7,6 @@ spring:
   cloud:
     discovery:
       enabled: true
-  kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9094}
 
 springdoc:
   swagger-ui:

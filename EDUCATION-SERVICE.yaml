@@ -15,6 +15,9 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     contexts: default
 
+springdoc:
+  show-actuator: true
+
 resilience4j:
   circuitbreaker:
     circuit-breaker-aspect-order: 1

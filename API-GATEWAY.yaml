@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: API-GATEWAY
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://keycloak.javaguru.by/realms/v.dubov
   cloud:
     gateway:
       routes:
@@ -34,11 +39,3 @@ spring:
             - Path=/api/v1/auth/**
           filters:
             - AuthenticationFilter
-
-security:
-  jwt:
-    secret: ${JWT_SECRET}
-
-clients:
-  identity-service:
-    url: "http://IDENTITY-SERVICE/api/auth/validate"

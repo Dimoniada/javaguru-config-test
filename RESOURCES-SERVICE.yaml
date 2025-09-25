@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: RESOURCES-SERVICE
+  kafka:
+    consumer:
+      group-id: resources-service-group

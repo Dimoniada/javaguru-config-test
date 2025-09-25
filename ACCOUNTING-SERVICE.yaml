@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ACCOUNTING-SERVICE
+  kafka:
+    consumer:
+      group-id: accounting-service-group

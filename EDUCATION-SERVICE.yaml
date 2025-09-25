@@ -15,5 +15,9 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     contexts: default
 
+  kafka:
+    consumer:
+      group-id: education-service-group
+
 springdoc:
   show-actuator: true

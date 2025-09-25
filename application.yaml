@@ -30,7 +30,6 @@ spring:
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      group-id: education-service-group
 
       auto-offset-reset: earliest      # consume earliest available message in the partition
       properties:

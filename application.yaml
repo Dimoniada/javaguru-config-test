@@ -57,6 +57,8 @@ management:
       exposure:
         include: mapping,health,env,refresh
   endpoint:
+    refresh:
+      enabled: true
     env:
       show-values: always
       keys-to-sanitize: []

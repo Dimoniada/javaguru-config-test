@@ -7,6 +7,45 @@ spring:
   cloud:
     discovery:
       enabled: true
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9091
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      retries: 2147483647              # default retries count within delivery timeout
+      properties:
+        delivery.timeout.ms: 60000     # total time for message delivery including retries, 1m
+        request.timeout.ms: 15000      # wait for an acknowledgment, 15s
+        retry.backoff.ms: 100          # 100ms between retries
+
+        linger.ms: 5                   # wait 5ms to batch
+        batch.size: 16384              # 16KB batches [bytes]
+        compression.type: snappy       # batch compression algorithm
+        buffer.memory: 33554432        # 32MB sent-buffer size [bytes]
+
+        max.block.ms: 50000            # max blocking time, 50s
+        enable.idempotence: true       # prevent duplicates
+        acks: all                      # wait for all replicas
+        max.in.flight.requests.per.connection: 5 # sent but not yet acknowledged requests count
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: education-service-group
+
+      auto-offset-reset: earliest      # consume earliest available message in the partition
+      properties:
+        request.timeout.ms: 15000      # timeout for pulling "messages" from the broker, 15s
+        retry.backoff.ms: 100          # before attempting to retry a failed request, 0.1s
+        fetch.min.bytes: 1             # minimum data size the server returns from a fetch request
+        fetch.max.wait.ms: 500         # max time the server will block before answering the fetch request, 0.5s
+
+# Application-level constants
+kafka:
+  topics:
+    education-response: internal-education-responses
+    accounting-request: accounting-allocate-requests
+    resources-request: resources-check-requests
+    notification-request: notification-send-requests
 
 springdoc:
   swagger-ui:
@@ -16,7 +55,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: mapping,health,retryevents,circuitbreakerevents,env,refresh
+        include: mapping,health,env,refresh
   endpoint:
     env:
       show-values: always

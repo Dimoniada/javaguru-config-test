@@ -75,20 +75,20 @@ services:
         echo 'Creating topic: internal-education-responses' &&
         /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic internal-education-responses --partitions 3 --replication-factor 2 --if-not-exists &&
       
-        echo 'Creating topic: internal-education-responses.DLT' &&
-        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic internal-education-responses.DLT --partitions 3 --replication-factor 2 --if-not-exists &&
+        echo 'Creating topic: internal-education-responses-dlt' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic internal-education-responses-dlt --partitions 3 --replication-factor 2 --if-not-exists &&
       
         echo 'Creating topic: accounting-allocate-requests' &&
         /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic accounting-allocate-requests --partitions 3 --replication-factor 2 --if-not-exists &&
         
-        echo 'Creating topic: accounting-allocate-requests.DLT' &&
-        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic accounting-allocate-requests.DLT --partitions 3 --replication-factor 2 --if-not-exists &&
+        echo 'Creating topic: accounting-allocate-requests-dlt' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic accounting-allocate-requests-dlt --partitions 3 --replication-factor 2 --if-not-exists &&
       
         echo 'Creating topic: resources-check-requests' &&
         /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic resources-check-requests --partitions 3 --replication-factor 2 --if-not-exists &&
       
-        echo 'Creating topic: resources-check-requests.DLT' &&
-        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic resources-check-requests.DLT --partitions 3 --replication-factor 2 --if-not-exists &&
+        echo 'Creating topic: resources-check-requests-dlt' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic resources-check-requests-dlt --partitions 3 --replication-factor 2 --if-not-exists &&
       
         echo 'Creating topic: notification-send-requests' &&
         /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic notification-send-requests --partitions 3 --replication-factor 2 --if-not-exists

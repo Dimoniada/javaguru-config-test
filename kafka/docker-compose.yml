@@ -1,0 +1,96 @@
+services:
+  kafka-1:
+    image: 'apache/kafka:4.1.0'
+    container_name: kafka-1
+    environment:
+      # KRaft settings
+      - KAFKA_NODE_ID=1
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - CLUSTER_ID=r4zt_wrqTRuT7W2NJsB_GA
+
+      - KAFKA_LISTENERS=BROKER://:9192,CONTROLLER://:9094,EXTERNAL://:9091
+      - KAFKA_ADVERTISED_LISTENERS=BROKER://kafka-1:9192,EXTERNAL://localhost:9091
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,BROKER:PLAINTEXT
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_INTER_BROKER_LISTENER_NAME=BROKER
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka-1:9094,2@kafka-2:9094,3@kafka-3:9094
+
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_LOG_DIRS=/tmp/kafka/logs
+    ports:
+      - 9091:9091
+
+  kafka-2:
+    image: 'apache/kafka:4.1.0'
+    container_name: kafka-2
+    environment:
+      - KAFKA_NODE_ID=2
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - CLUSTER_ID=r4zt_wrqTRuT7W2NJsB_GA
+
+      - KAFKA_LISTENERS=BROKER://:9192,CONTROLLER://:9094,EXTERNAL://:9092
+      - KAFKA_ADVERTISED_LISTENERS=BROKER://kafka-2:9192,EXTERNAL://localhost:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,BROKER:PLAINTEXT
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_INTER_BROKER_LISTENER_NAME=BROKER
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka-1:9094,2@kafka-2:9094,3@kafka-3:9094
+
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_LOG_DIRS=/tmp/kafka/logs
+    ports:
+      - 9092:9092
+
+  kafka-3:
+    image: 'apache/kafka:4.1.0'
+    container_name: kafka-3
+    environment:
+      - KAFKA_NODE_ID=3
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - CLUSTER_ID=r4zt_wrqTRuT7W2NJsB_GA
+
+      - KAFKA_LISTENERS=BROKER://:9192,CONTROLLER://:9094,EXTERNAL://:9093
+      - KAFKA_ADVERTISED_LISTENERS=BROKER://kafka-3:9192,EXTERNAL://localhost:9093
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,BROKER:PLAINTEXT
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_INTER_BROKER_LISTENER_NAME=BROKER
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka-1:9094,2@kafka-2:9094,3@kafka-3:9094
+
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=false
+      - KAFKA_LOG_DIRS=/tmp/kafka/logs
+    ports:
+      - 9093:9093
+
+  kafka-topics-init:
+    image: 'apache/kafka:4.1.0'
+    container_name: kafka-topics-init
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+    command: >
+      bash -c "
+        echo 'Waiting for Kafka to be ready...' &&
+        sleep 10 &&
+      
+        echo 'Creating topic: internal-education-responses' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic internal-education-responses --partitions 3 --replication-factor 2 --if-not-exists &&
+      
+        echo 'Creating topic: internal-education-responses.DLT' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic internal-education-responses.DLT --partitions 3 --replication-factor 2 --if-not-exists &&
+      
+        echo 'Creating topic: accounting-allocate-requests' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic accounting-allocate-requests --partitions 3 --replication-factor 2 --if-not-exists &&
+        
+        echo 'Creating topic: accounting-allocate-requests.DLT' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic accounting-allocate-requests.DLT --partitions 3 --replication-factor 2 --if-not-exists &&
+      
+        echo 'Creating topic: resources-check-requests' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic resources-check-requests --partitions 3 --replication-factor 2 --if-not-exists &&
+      
+        echo 'Creating topic: resources-check-requests.DLT' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic resources-check-requests.DLT --partitions 3 --replication-factor 2 --if-not-exists &&
+      
+        echo 'Creating topic: notification-send-requests' &&
+        /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka-1:9192 --create --topic notification-send-requests --partitions 3 --replication-factor 2 --if-not-exists
+      "
+    restart: "no"

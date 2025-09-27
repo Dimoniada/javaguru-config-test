@@ -21,3 +21,7 @@ spring:
 
 springdoc:
   show-actuator: true
+
+logging:
+  level:
+    org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker: error

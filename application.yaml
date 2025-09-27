@@ -44,11 +44,11 @@ spring:
 kafka:
   topics:
     education-response: internal-education-responses
-    education-response-dlt: internal-education-responses.DLT
+    education-response-dlt: internal-education-responses-dlt
     accounting-request: accounting-allocate-requests
-    accounting-request-dlt: accounting-allocate-requests.DLT
+    accounting-request-dlt: accounting-allocate-requests-dlt
     resources-request: resources-check-requests
-    resources-request-dlt: resources-check-requests.DLT
+    resources-request-dlt: resources-check-requests-dlt
     notification-request: notification-send-requests
   error-handler:
     retry:

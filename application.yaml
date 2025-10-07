@@ -28,6 +28,8 @@ spring:
         acks: all                      # wait for all replicas
         max.in.flight.requests.per.connection: 5 # sent but not yet acknowledged requests count
     consumer:
+      isolation-level: read_committed
+
       key-deserializer: org.apache.kafka.common.serialization.UUIDDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 

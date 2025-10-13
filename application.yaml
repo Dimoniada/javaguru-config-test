@@ -10,6 +10,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092,localhost:9091
     producer:
+      transaction-id-prefix: producer-transaction-${random.value}-
       key-serializer: org.apache.kafka.common.serialization.UUIDSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       retries: 2147483647              # default retries count within delivery timeout

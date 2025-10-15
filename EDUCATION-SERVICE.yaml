@@ -19,6 +19,16 @@ spring:
     consumer:
       group-id: education-service-group
 
+kafka:
+  transaction:
+    accounting: allocate-budget-tx-${random.value}
+    resource: resource-check-tx-${random.value}
+    notify: notify-tx-${random.value}
+
+outbox:
+  retry:
+    interval-minutes: 20
+
 springdoc:
   show-actuator: true
 

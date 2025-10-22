@@ -26,8 +26,9 @@ kafka:
     notify: notify-tx-${random.value}
 
 outbox:
-  retry:
-    interval-minutes: 20
+  scheduler:
+    batch-size: 3
+    interval-ms: 5000
 
 springdoc:
   show-actuator: true

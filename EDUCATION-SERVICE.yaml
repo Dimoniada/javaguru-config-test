@@ -29,6 +29,7 @@ outbox:
   scheduler:
     batch-size: 3
     interval-ms: 5000
+    timeout-min: 30
 
 springdoc:
   show-actuator: true
